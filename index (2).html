@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A.R Rentals Service | Motorcycle Rentals</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preload" as="image" href="favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+font-family:'Inter',sans-serif;
+background:#0b0c10;
+color:#e6e6e6;
+scroll-behavior:smooth;
+
+padding-top:20px;
+}
+
+/* Shared scroll reveal (existing) */
+.reveal{
+opacity:0;
+transform:translateY(60px);
+transition:opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+
+/* New reveal-on-scroll system from main index.html */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal-on-scroll.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Top navigation from main index.html */
+.site-header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+
+z-index:9999;
+
+background:rgba(5,6,8,0.96);
+backdrop-filter:blur(10px);
+
+border-bottom:2px solid #ff6a00;
+
+transition:all 0.3s ease;
+}
+.nav-bar{
+width:100%;
+padding:10px 5%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:24px;
+}
+.nav-brand{
+display:flex;
+align-items:center;
+gap:10px;
+color:#ffffff;
+text-decoration:none;
+}
+
+.reveal-card{
+opacity:0;
+transform:translateY(60px) scale(0.95);
+transition:all 0.8s cubic-bezier(.21,.98,.6,.99);
+}
+
+.reveal-card.visible{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+.nav-brand-logo{
+width:40px;
+height:40px;
+border-radius:8px;
+object-fit:cover;
+border:2px solid #ff6a00;
+background:#ffffff;
+}
+.nav-brand-text{
+font-weight:600;
+letter-spacing:0.04em;
+text-transform:uppercase;
+font-size:14px;
+}
+.nav-links{
+display:flex;
+align-items:center;
+gap:20px;
+}
+.nav-links a{
+color:#ffffff;
+text-decoration:none;
+font-size:14px;
+font-weight:500;
+opacity:0.85;
+transition:opacity 0.2s ease,color 0.2s ease;
+}
+.nav-links a:hover{
+opacity:1;
+color:#ff6a00;
+}
+.nav-links a:focus-visible{
+outline:2px solid #ff6a00;
+outline-offset:3px;
+}
+
+/* Mobile navigation toggle */
+.nav-toggle{
+display:none;
+width:40px;
+height:40px;
+border-radius:999px;
+border:1px solid rgba(148,163,184,0.7);
+background:rgba(15,23,42,0.85);
+color:#e5e7eb;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:background 0.2s ease,transform 0.15s ease,border-color 0.2s ease;
+}
+.nav-toggle-line{
+position:relative;
+width:18px;
+height:2px;
+border-radius:999px;
+background:#e5e7eb;
+transition:background 0.2s ease;
+}
+.nav-toggle-line::before,
+.nav-toggle-line::after{
+content:"";
+position:absolute;
+left:0;
+width:18px;
+height:2px;
+border-radius:999px;
+background:#e5e7eb;
+transition:transform 0.2s ease,top 0.2s ease,opacity 0.2s ease;
+}
+.nav-toggle-line::before{
+top:-6px;
+}
+.nav-toggle-line::after{
+top:6px;
+}
+.nav-toggle:hover{
+background:rgba(30,41,59,0.95);
+border-color:#ff6a00;
+transform:translateY(-1px);
+}
+.nav-toggle:focus-visible{
+outline:2px solid #ff6a00;
+outline-offset:3px;
+}
+.nav-toggle.open .nav-toggle-line{
+background:transparent;
+}
+.nav-toggle.open .nav-toggle-line::before{
+top:0;
+transform:rotate(45deg);
+}
+.nav-toggle.open .nav-toggle-line::after{
+top:0;
+transform:rotate(-45deg);
+}
+
+.hero{
+min-height:100vh;
+background-size:cover;
+background-position:center;
+background:
+linear-gradient(to bottom, rgba(5,8,15,0.65), rgba(5,8,15,0.92)),
+url("hero (1).jpg") center/cover no-repeat;background-size:cover;
+background-position:center;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+@media(max-width:768px){
+.hero{
+min-height:100vh;
+padding:40px 20px;
+}
+}
+
+.logo{
+width:320px;
+max-width:55vw;
+border-radius:16px;
+margin-bottom:25px;
+animation:logoFade 1.2s ease forwards;
+}
+
+@keyframes logoFade{
+from{opacity:0;transform:translateY(-40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes whatsappPulse{
+0%{
+box-shadow:0 0 0 0 rgba(37,211,102,0.7);
+}
+70%{
+box-shadow:0 0 0 18px rgba(37,211,102,0);
+}
+100%{
+box-shadow:0 0 0 0 rgba(37,211,102,0);
+}
+}
+
+.hero h1{font-family:'Oswald',sans-serif;font-size:80px;}
+.hero p{margin-top:15px;font-size:18px;}
+
+.hero-buttons{margin-top:30px;display:flex;gap:15px;}
+
+.hero button{
+padding:14px 34px;
+border:2px solid #ff6a00;
+background:transparent;
+color:#ff6a00;
+border-radius:6px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.hero button:hover{background:rgba(255,106,0,0.12);}
+.hero button:focus-visible{
+outline:2px solid #ff6a00;
+outline-offset:3px;
+}
+
+section{padding:70px 10%;}
+h2{text-align:center;margin-bottom:40px;font-size:32px;color:#ff6a00;font-family:'Oswald',sans-serif;}
+
+.bikes{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+width:100%;
+}
+
+.card{
+background:#14161c;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.45);
+opacity:0;
+transform:translateY(15px);
+transition:transform 0.25s ease, box-shadow 0.25s ease, opacity 0.2s ease;
+display:flex;
+flex-direction:column;
+}
+
+.card{
+transition:transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 20px 40px rgba(0,0,0,0.65),
+           0 0 0 1px rgba(255,106,0,0.25);
+}
+
+.card img{
+transition:transform 0.35s ease;
+}
+
+.card:hover img{
+transform:scale(1.08);
+}
+
+.card{
+cursor:pointer;
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.card-content{
+padding:20px;
+text-align:center;
+flex:1;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.price{color:#ff6a00;font-weight:500;}
+
+.badge{
+padding:4px 12px;
+border-radius:20px;
+font-size:12px;
+margin:0 auto;
+}
+
+.badge-available{background:rgba(34,197,94,0.2);color:#4ade80;}
+.badge-rented{background:rgba(239,68,68,0.2);color:#f87171;}
+
+.rent-btn{
+margin-top:auto;
+padding:10px;
+border:none;
+border-radius:6px;
+background:#ff6a00;
+color:white;
+cursor:pointer;
+}
+
+/* Check Availability button styled to match theme */
+.check-availability{
+  margin-top:10px;
+  padding:10px 18px;
+  border-radius:999px;
+  border:1px solid #ff6a00;
+  background:rgba(255,106,0,0.08);
+  color:#ffddb8;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:0.03em;
+  text-transform:uppercase;
+  transition:background 0.2s ease,border-color 0.2s ease,color 0.2s ease,transform 0.15s ease;
+}
+
+.check-availability:hover{
+  background:#ff6a00;
+  border-color:#ff6a00;
+  color:#0b0c10;
+  transform:translateY(-1px);
+}
+.check-availability:focus-visible{
+outline:2px solid #ff6a00;
+outline-offset:3px;
+}
+
+/* Today availability indicator on cards */
+.availability-indicator{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:500;
+  margin:6px auto 10px;
+}
+
+.availability-indicator .availability-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+}
+
+.availability-indicator.available{
+  background:rgba(34,197,94,0.15);
+  color:#4ade80;
+}
+
+.availability-indicator.available .availability-dot{
+  background:#22c55e;
+}
+
+.availability-indicator.unavailable{
+  background:rgba(239,68,68,0.18);
+  color:#fca5a5;
+}
+
+.availability-indicator.unavailable .availability-dot{
+  background:#ef4444;
+}
+
+.about{background:#101218;text-align:center;}
+.about p{max-width:750px;margin:auto;}
+
+.contact{
+background:#ff6a00;
+color:white;
+text-align:center;
+}
+
+.contact-link{color:white;text-decoration:none;}
+
+.map-container{
+margin-top:30px;
+border-radius:10px;
+overflow:hidden;
+}
+
+/* Scroll-to-top button from main index.html */
+.scroll-top-btn{
+position:fixed;
+right:18px;
+bottom:18px;
+width:42px;
+height:42px;
+border-radius:50%;
+border:none;
+background:#ff6a00;
+color:#0b0c10;
+box-shadow:0 4px 16px rgba(0,0,0,0.35);
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:25;
+opacity:0;
+visibility:hidden;
+transform:translateY(10px);
+transition:opacity 0.25s ease,transform 0.25s ease,visibility 0.25s ease,background 0.2s ease;
+}
+.scroll-top-btn.visible{
+opacity:1;
+visibility:visible;
+transform:translateY(0);
+}
+.scroll-top-btn:hover{
+background:#ffffff;
+}
+
+footer{
+background:#050608;
+text-align:center;
+padding:18px;
+color:#7c8596;
+position:relative;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-btn{
+position:fixed;
+bottom:90px;
+right:25px;
+width:70px;
+height:70px;
+background:#25D366;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+color:white;
+font-size:30px;
+text-decoration:none;
+box-shadow:0 10px 25px rgba(0,0,0,0.45);
+z-index:9999;
+animation:whatsappPulse 2s infinite;
+transition:transform 0.2s ease;
+}
+
+.whatsapp-btn:hover{
+transform:scale(1.1);
+animation:none;
+}
+
+.admin-trigger{
+display:none;
+position:fixed;
+top:20px;
+right:20px;
+background:#ff6a00;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:6px;
+cursor:pointer;
+z-index:99999;
+font-weight:600;
+box-shadow:0 5px 15px rgba(0,0,0,0.4);
+}
+.admin-trigger:hover{
+background:#e05d00;
+}
+
+/* Layout and typography breakpoints */
+@media(max-width:1024px){
+  .hero h1{font-size:64px;}
+  section{padding:60px 7%;}
+}
+
+@media(max-width:768px){
+  .nav-toggle{display:flex;}
+  .nav-links{
+    position:fixed;
+    inset:auto 0 0 0;
+    top:56px;
+    padding:0 5%;
+    background:rgba(5,6,8,0.98);
+    flex-direction:column;
+    align-items:flex-start;
+    gap:14px;
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(-6px);
+    transition:max-height 0.25s ease,opacity 0.25s ease,transform 0.25s ease;
+  }
+  .nav-links.open{
+    max-height:260px;
+    padding-top:12px;
+    padding-bottom:16px;
+    opacity:1;
+    transform:translateY(0);
+  }
+  .nav-links a{
+    font-size:15px;
+    padding:4px 0;
+  }
+  .hero{
+    padding:40px 18px;
+  }
+  .hero h1{font-size:48px;}
+  .hero p{font-size:16px;}
+  .hero-buttons{
+    flex-direction:column;
+    align-items:center;
+  }
+  .hero button{
+    width:220px;
+  }
+  section{padding:56px 6%;}
+}
+
+@media(max-width:480px){
+  .nav-bar{
+    padding:8px 4%;
+  }
+  .logo{
+    width:320px;
+    max-width:70vw;
+  }
+  .hero h1{font-size:40px;}
+  .hero p{font-size:15px;}
+  .hero-buttons{
+    gap:10px;
+  }
+  .hero button{
+    padding:12px 20px;
+    font-size:14px;
+  }
+  .bikes{
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+}
+
+@media(max-width:320px){
+  .hero h1{font-size:34px;}
+  .hero p{font-size:14px;}
+  .hero button{
+    width:100%;
+  }
+}
+
+@media(min-width:1440px){
+  .nav-bar{
+    padding-inline:10%;
+  }
+  section{
+    max-width:1280px;
+    margin:0 auto;
+  }
+  .hero h1{
+    font-size:86px;
+  }
+}
+
+.admin-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+padding:10px;
+background:#1a1c25;
+border-radius:8px;
+}
+
+.toggle{
+width:45px;
+height:22px;
+background:#444;
+border-radius:20px;
+position:relative;
+cursor:pointer;
+}
+
+.toggle::after{
+content:"";
+position:absolute;
+width:18px;
+height:18px;
+background:white;
+border-radius:50%;
+top:2px;
+left:2px;
+transition:0.2s;
+}
+
+.toggle.active{
+background:#4ade80;
+}
+
+.toggle.active::after{
+left:25px;
+}
+
+@media(max-width:768px){
+.card{
+transition:none;
+opacity:1;
+transform:none;
+}
+}
+
+/* Calendar modal styled for dark theme */
+#calendar-modal{
+  border:2px solid #ff6a00;
+  border-radius:10px;
+  padding:22px;
+  background:#050608;
+  color:#e6e6e6;
+  width:min(520px,calc(100vw - 32px));
+  box-shadow:0 12px 40px rgba(0,0,0,0.7);
+}
+
+@media(max-width:576px){
+  #calendar-modal{
+    padding:16px;
+    width:calc(100vw - 24px);
+    margin:12px;
+  }
+
+  .cal-title h3{
+    font-size:18px;
+  }
+
+  .cal-title .cal-model{
+    font-size:12px;
+  }
+
+  .cal-nav{
+    margin:8px 0 10px;
+  }
+
+  .cal-nav button{
+    padding:6px 8px;
+    font-size:12px;
+  }
+
+  .cal-month-label{
+    font-size:14px;
+  }
+
+  .cal-weekdays div{
+    font-size:11px;
+    padding:2px 0;
+  }
+
+  .cal-day{
+    height:36px;
+    font-size:12px;
+  }
+
+  .cal-spacer{
+    height:36px;
+  }
+
+  .cal-legend{
+    font-size:11px;
+    gap:8px;
+  }
+
+  .cal-dot{
+    width:8px;
+    height:8px;
+  }
+
+  .cal-actions button{
+    padding:8px 12px;
+    font-size:12px;
+  }
+
+  .cal-selected{
+    font-size:12px;
+    margin-top:8px;
+  }
+}
+
+@media(max-width:480px){
+  #calendar-modal{
+    padding:12px;
+    width:calc(100vw - 20px);
+    margin:10px;
+  }
+
+  .cal-title{
+    margin-bottom:8px;
+  }
+
+  .cal-title h3{
+    font-size:16px;
+  }
+
+  .cal-nav{
+    gap:6px;
+  }
+
+  .cal-nav button{
+    padding:4px 6px;
+    font-size:11px;
+  }
+
+  .cal-month-label{
+    font-size:13px;
+  }
+
+  .cal-weekdays,.cal-grid{
+    gap:4px;
+  }
+
+  .cal-weekdays div{
+    font-size:10px;
+  }
+
+  .cal-day{
+    height:32px;
+    font-size:11px;
+  }
+
+  .cal-spacer{
+    height:32px;
+  }
+
+  .cal-footer{
+    margin-top:10px;
+    flex-direction:column;
+    gap:10px;
+    align-items:stretch;
+  }
+
+  .cal-legend{
+    justify-content:center;
+  }
+
+  .cal-actions{
+    justify-content:center;
+    gap:8px;
+  }
+
+  .cal-actions button{
+    flex:1;
+    padding:6px 10px;
+    font-size:11px;
+  }
+}
+
+#calendar-modal::backdrop{
+  background:rgba(0,0,0,0.7);
+}
+
+.cal-title{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+
+.cal-title h3{
+  font-size:20px;
+  font-weight:600;
+  margin:0;
+  color:#ffddb8;
+}
+
+.cal-title .cal-model{
+  font-size:14px;
+  opacity:0.8;
+  color:#9ca3af;
+}
+
+.cal-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:10px 0 12px;
+}
+
+.cal-nav button{
+  background:#111827;
+  color:#e5e7eb;
+  border:1px solid #4b5563;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px;
+  transition:all 0.2s ease;
+}
+
+.cal-nav button:hover{
+  background:#ff6a00;
+  border-color:#ff6a00;
+  color:#0b0c10;
+}
+
+.cal-month-label{
+  font-weight:600;
+  color:#f9fafb;
+  font-size:16px;
+}
+
+.cal-weekdays,
+.cal-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+}
+
+.cal-weekdays div{
+  text-align:center;
+  font-size:12px;
+  letter-spacing:0.02em;
+  opacity:0.75;
+  padding:4px 0;
+  color:#9ca3af;
+  font-weight:500;
+}
+
+.cal-day{
+  height:42px;
+  border-radius:8px;
+  border:1px solid #1f2933;
+  background:#0b0c10;
+  color:#e5e7eb;
+  cursor:pointer;
+  font-size:14px;
+  transition:all 0.18s ease;
+}
+
+.cal-day:hover:not(:disabled){
+  border-color:#ff6a00;
+  background:#111827;
+}
+
+.cal-day.available{
+  background:rgba(255,106,0,0.16);
+  color:#ffedd5;
+  border-color:#ff6a00;
+  font-weight:500;
+}
+
+.cal-day.unavailable,
+.cal-day:disabled{
+  background:#111827;
+  color:#6b7280;
+  border-color:#1f2937;
+  cursor:not-allowed;
+}
+
+.cal-day.selected{
+  outline:2px solid #ff6a00;
+  outline-offset:1px;
+  background:#ff6a00;
+  color:#0b0c10;
+  font-weight:600;
+}
+
+.cal-spacer{
+  height:42px;
+}
+
+.cal-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:14px;
+}
+
+.cal-legend{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:13px;
+  color:#9ca3af;
+  flex-wrap:wrap;
+}
+
+.cal-dot{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  display:inline-block;
+  margin-right:6px;
+}
+
+.cal-dot.available{
+  background:#ff6a00;
+}
+
+.cal-dot.unavailable{
+  background:transparent;
+  border:1px solid #6b7280;
+}
+
+.cal-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.cal-actions button{
+  background:#ff6a00;
+  color:#0b0c10;
+  border:none;
+  padding:10px 16px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:500;
+  transition:all 0.2s ease;
+}
+
+.cal-actions button:hover:not(:disabled){
+  background:#ffd7a3;
+  color:#14151b;
+}
+
+.cal-actions button:disabled{
+  background:#1f2933;
+  color:#6b7280;
+  cursor:not-allowed;
+}
+
+.cal-selected{
+  margin-top:12px;
+  font-size:14px;
+  color:#d1d5db;
+  line-height:1.5;
+}
+
+.section-animate{
+opacity:0;
+transform:translateY(40px);
+transition:opacity 0.9s ease, transform 0.9s ease;
+}
+
+.section-animate.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+/* ===== Background Moving Bikes ===== */
+
+.bike-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:0;
+overflow:hidden;
+}
+
+.bike-float{
+position:absolute;
+width: 200px;
+
+opacity:0.20;
+will-change:transform;
+
+filter:
+drop-shadow(0 0 40px rgba(255,106,0,0.6))
+drop-shadow(0 0 80px rgba(255,106,0,0.4))
+drop-shadow(0 0 120px rgba(255,106,0,0.2));
+
+transition:transform 0.3s ease;
+}
+
+/* Starting positions */
+
+.bike1{
+top:20%;
+left:10%;
+}
+
+.bike2{
+top:60%;
+left:70%;
+}
+
+.bike3{
+top:40%;
+left:40%;
+}
+
+/* Ensure content stays above */
+
+.hero,
+section,
+footer{
+position:relative;
+z-index:2;
+}
+
+</style>
+</head>
+
+<body>
+  <div class="bike-bg">
+
+    <img src="bike-silhouette1.png" class="bike-float bike1">
+    <img src="bike-silhouette2.png" class="bike-float bike2">
+    <img src="bike-silhouette3.png" class="bike-float bike3">
+    
+  </div>
+<header class="site-header">
+  <div class="nav-bar">
+    <a href="#top" class="nav-brand">
+      <img src="favicon.png" alt="A.R Rentals logo" class="nav-brand-logo" width="40" height="40" decoding="async" loading="lazy">
+      <span class="nav-brand-text">A.R Rentals</span>
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="nav-toggle-line"></span>
+    </button>
+    <nav class="nav-links">
+      <a href="#bikes">Bikes</a>
+      <a href="#scooties">Scooties</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero reveal-on-scroll" id="top">
+<img src="favicon.png" class="logo" width="220" decoding="async" fetchpriority="high">
+<h1>A.R Rentals Service</h1>
+<p>Affordable Bike & Scooty Rental</p>
+<div class="hero-buttons">
+<button onclick="document.getElementById('bikes').scrollIntoView({behavior:'smooth'})">View Bikes</button>
+<button onclick="document.getElementById('scooties').scrollIntoView({behavior:'smooth'})">View Scooties</button>
+</div>
+</div>
+
+<section id="bikes" class="reveal reveal-on-scroll section-animate">
+<h2>Bikes</h2>
+<div class="bikes">
+  <div class="card reveal-card">
+    <img src="xpulse200.jpg" alt="XPulse 200" loading="lazy">
+    <div class="card-content">
+      <h3>XPulse 200</h3>
+      <p class="price">₹999 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+  <div class="card reveal-card">
+    <img src="himalayan411.jpg" alt="Himalayan 411" loading="lazy">
+    <div class="card-content">
+      <h3>Himalayan 411</h3>
+      <p class="price">₹1299 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+  <div class="card reveal-card">
+    <img src="himalayan450.jpg" alt="Himalayan 450" loading="lazy">
+    <div class="card-content">
+      <h3>Himalayan 450</h3>
+      <p class="price">₹1599 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+  <div class="card reveal-card">
+    <img src="meteor350.jpg" alt="Meteor 350" loading="lazy">
+    <div class="card-content">
+      <h3>Meteor 350</h3>
+      <p class="price">₹1299 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+  <div class="card reveal-card">
+    <img src="scram411.jpg" alt="Scram 411" loading="lazy">
+    <div class="card-content">
+      <h3>Scram 411</h3>
+      <p class="price">₹1299 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+  <div class="card reveal-card">
+    <img src="ronin225.jpg" alt="Ronin 225" loading="lazy">
+    <div class="card-content">
+      <h3>Ronin 225</h3>
+      <p class="price">₹999 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+  <div class="card reveal-card">
+    <img src="hunter350.jpg" alt="Hunter 350" loading="lazy">
+    <div class="card-content">
+      <h3>Hunter 350</h3>
+      <p class="price">₹1199 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+  <div class="card reveal-card">
+    <img src="classic350.jpg" alt="Classic 350" loading="lazy">
+    <div class="card-content">
+      <h3>Classic 350</h3>
+      <p class="price">₹1199 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="scooties" class="reveal reveal-on-scroll section-animate">
+<h2>Scooties</h2>
+<div class="bikes">
+  <div class="card reveal-card">
+    <img src="ntorq125xt.jpg" alt="NTORQ 125 XT" loading="lazy">
+    <div class="card-content">
+      <h3>NTORQ 125 XT</h3>
+      <p class="price">₹699 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+  <div class="card reveal-card">
+    <img src="ntorq125.jpg" alt="NTORQ 125" loading="lazy">
+    <div class="card-content">
+      <h3>NTORQ 125</h3>
+      <p class="price">₹599 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+  <div class="card reveal-card">
+    <img src="dio125.jpg" alt="Dio 125" loading="lazy">
+    <div class="card-content">
+      <h3>Dio 125</h3>
+      <p class="price">₹599 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+  <div class="card reveal-card">
+    <img src="dio110.jpg" alt="Dio 110" loading="lazy">
+    <div class="card-content">
+      <h3>Dio 110</h3>
+      <p class="price">₹549 / Day</p>
+      <button class="check-availability" onclick="openCalendar(event)">Check Availability</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="about reveal reveal-on-scroll section-animate" id="about">
+<h2>About Us</h2>
+<p>A.R Rentals Service provides well-maintained motorcycles and scooties suitable for city rides, touring, and adventure travel with reliable service and affordable pricing.</p>
+</section>
+
+<section class="contact reveal reveal-on-scroll section-animate" id="contact">
+<h2>Contact Information</h2>
+<p><strong>Phone:</strong>
+<a href="tel:+918471973427" class="contact-link">+91 8471973427</a> |
+<a href="tel:+919365757448" class="contact-link">+91 9365757448</a>
+</p>
+<p><strong>Email:</strong>
+<a href="mailto:mohanraju491@gmail.com" class="contact-link">mohanraju491@gmail.com</a>
+</p>
+<p><strong>Address:</strong> Ghoramara, Bhetapara, Guwahati, Assam</p>
+<p>Open Daily: 10:00 AM – 9:00 PM</p>
+
+<div class="map-container">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.3445954243!2d91.78082107545514!3d26.120305077128364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375a5f1495d3c577%3A0x173fea707f17bc16!2sAR%20BIKE%20RENTAL%20%7C%20scooter%20rental%20Guwahati!5e0!3m2!1sen!2sin!4v1771603455580!5m2!1sen!2sin"
+width="100%" height="450" style="border:0;" allowfullscreen loading="lazy"></iframe>
+</div>
+</section>
+
+<footer class="reveal-on-scroll">
+&copy; 2026 A.R Rentals Service
+</footer>
+
+<a href="https://wa.me/918471973427" class="whatsapp-btn" target="_blank">
+<i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<button type="button" class="scroll-top-btn" aria-label="Scroll to top" id="scroll-top-btn">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<!-- Calendar Modal -->
+<dialog id="calendar-modal">
+    <div class="cal-title">
+        <h3>Select a Date</h3>
+        <div class="cal-model" id="cal-model"></div>
+    </div>
+
+    <div class="cal-nav">
+        <button type="button" id="cal-prev" aria-label="Previous month">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="cal-month-label" id="cal-month-label"></div>
+        <button type="button" id="cal-next" aria-label="Next month">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="cal-weekdays" aria-hidden="true" id="cal-weekdays"></div>
+    <div class="cal-grid" id="cal-grid" aria-label="Calendar dates"></div>
+
+    <div class="cal-selected" id="cal-selected"></div>
+
+    <div class="cal-footer">
+        <div class="cal-legend" aria-label="Legend">
+            <span><span class="cal-dot available"></span>Available</span>
+            <span><span class="cal-dot unavailable"></span>Unavailable</span>
+        </div>
+        <div class="cal-actions">
+            <button type="button" id="cal-request-btn" onclick="handleBookingRequest()" disabled>Request Booking</button>
+            <button type="button" onclick="closeCalendar()">Close</button>
+        </div>
+    </div>
+</dialog>
+
+<!-- FIREBASE (from main index.html) -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCzmYlbNqXAFfIl93RrRbiwRGQE13QarqI",
+  authDomain: "arrentals-559f4.firebaseapp.com",
+  projectId: "arrentals-559f4",
+  storageBucket: "arrentals-559f4.firebasestorage.app",
+  messagingSenderId: "197768582450",
+  appId: "1:197768582450:web:029b4c072c7bb959f0332b"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Expose to non-module script via window
+window.unavailableByModel = {};
+
+async function preloadUnavailableDates() {
+  const snap = await getDocs(collection(db, "availability"));
+
+  snap.forEach(docSnap => {
+    const { model, date } = docSnap.data();
+    if (!window.unavailableByModel[model]) {
+      window.unavailableByModel[model] = new Set();
+    }
+    window.unavailableByModel[model].add(date);
+  });
+}
+
+// Helper to decide if a specific date is available for a model
+// `dateLike` can be an ISO string ("YYYY-MM-DD") or a Date
+function isDateAvailableForModel(model, dateLike) {
+  const blockedSet = window.unavailableByModel[model] || new Set();
+
+  // Normalize to an ISO calendar date string in local time
+  let iso;
+  if (typeof dateLike === 'string') {
+    iso = dateLike;
+  } else {
+    const d = new Date(dateLike);
+    iso = toISODate(d);
+  }
+
+  // If the date is explicitly blocked in Firestore, mark it unavailable
+  if (blockedSet.has(iso)) return false;
+
+  // Otherwise it's available
+  return true;
+}
+
+// Function to check today's availability for a vehicle model
+function isAvailableToday(model) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const todayISO = toISODate(today);
+  return isDateAvailableForModel(model, todayISO);
+}
+
+// Function to update availability indicators on all cards
+function updateAvailabilityIndicators() {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const model = card.querySelector('h3')?.textContent?.trim();
+    if (!model) return;
+    
+    // Remove existing indicator if any
+    const existingIndicator = card.querySelector('.availability-indicator');
+    if (existingIndicator) {
+      existingIndicator.remove();
+    }
+    
+    // Create new indicator
+    const indicator = document.createElement('div');
+    indicator.className = 'availability-indicator';
+    
+    const dot = document.createElement('span');
+    dot.className = 'availability-dot';
+    
+    const text = document.createElement('span');
+    
+    if (isAvailableToday(model)) {
+      indicator.classList.add('available');
+      text.textContent = 'Available Today';
+    } else {
+      indicator.classList.add('unavailable');
+      text.textContent = 'Unavailable Today';
+    }
+    
+    indicator.appendChild(dot);
+    indicator.appendChild(text);
+    
+    // Insert indicator after price element
+    const priceElement = card.querySelector('.price');
+    if (priceElement) {
+      priceElement.parentNode.insertBefore(indicator, priceElement.nextSibling);
+    }
+  });
+}
+
+// Make functions globally available
+window.isDateAvailableForModel = isDateAvailableForModel;
+window.isAvailableToday = isAvailableToday;
+window.updateAvailabilityIndicators = updateAvailabilityIndicators;
+
+// Preload Firestore data once on load
+preloadUnavailableDates()
+  .then(() => {
+    // Update availability indicators after data is loaded
+    updateAvailabilityIndicators();
+  })
+  .catch(console.error);
+</script>
+
+<script>
+  
+    const calendarState = {
+        model: null,
+        monthCursor: new Date(),
+        availableSet: new Set(),
+        selectedISO: null,
+        rangeStartISO: null,
+        rangeEndISO: null,
+    };
+
+    function pad2(n) {
+        return String(n).padStart(2, '0');
+    }
+
+    function toISODate(d) {
+        return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+    }
+
+    function startOfDay(d) {
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    }
+
+    function getModelFromEvent(event) {
+        const card = event?.target?.closest?.('.card');
+        const model = card?.querySelector?.('h3')?.textContent?.trim();
+        return model || 'Rental';
+    }
+
+    function setMonthCursor(dateLike) {
+        const d = new Date(dateLike);
+        calendarState.monthCursor = new Date(d.getFullYear(), d.getMonth(), 1);
+    }
+
+    function renderWeekdays() {
+        const el = document.getElementById('cal-weekdays');
+        const labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        el.innerHTML = labels.map((l) => `<div>${l}</div>`).join('');
+    }
+
+    function renderCalendar() {
+        const modal = document.getElementById('calendar-modal');
+        if (!modal?.open) return;
+
+        const grid = document.getElementById('cal-grid');
+        const monthLabel = document.getElementById('cal-month-label');
+        const selectedEl = document.getElementById('cal-selected');
+        const modelEl = document.getElementById('cal-model');
+
+        const cursor = calendarState.monthCursor;
+        const year = cursor.getFullYear();
+        const month = cursor.getMonth();
+        const first = new Date(year, month, 1);
+        const last = new Date(year, month + 1, 0);
+
+        monthLabel.textContent = first.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+        modelEl.textContent = calendarState.model ? `Model: ${calendarState.model}` : '';
+
+        const firstWeekday = first.getDay();
+        const daysInMonth = last.getDate();
+
+        const parts = [];
+        for (let i = 0; i < firstWeekday; i++) {
+            parts.push(`<div class="cal-spacer" aria-hidden="true"></div>`);
+        }
+
+        const startISO = calendarState.rangeStartISO;
+        const endISO = calendarState.rangeEndISO || calendarState.rangeStartISO;
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const d = new Date(year, month, day);
+            const iso = toISODate(d);
+            const isAvailable = (
+                typeof window.isDateAvailableForModel === 'function'
+                    ? window.isDateAvailableForModel(calendarState.model, iso)
+                    : true
+            );
+
+            let inRange = false;
+            let isStart = false;
+            let isEnd = false;
+            if (startISO) {
+                if (!endISO || startISO === endISO) {
+                    isStart = iso === startISO;
+                    isEnd = iso === startISO;
+                } else {
+                    isStart = iso === startISO;
+                    isEnd = iso === endISO;
+                    inRange = iso > startISO && iso < endISO;
+                }
+            }
+
+            const classes = [
+                'cal-day',
+                isAvailable ? 'available' : 'unavailable',
+                (isStart || isEnd) ? 'selected' : '',
+                inRange ? 'in-range' : '',
+            ]
+                .filter(Boolean)
+                .join(' ');
+
+            const disabledAttr = isAvailable ? '' : 'disabled';
+            const aria = isAvailable ? `aria-label="Available: ${iso}"` : `aria-label="Unavailable: ${iso}"`;
+
+            parts.push(
+                `<button type="button" class="${classes}" data-iso="${iso}" ${disabledAttr} ${aria}>${day}</button>`
+            );
+        }
+
+        grid.innerHTML = parts.join('');
+
+        if (!calendarState.rangeStartISO) {
+            selectedEl.textContent = 'Select a start date (greyed out dates are unavailable).';
+        } else if (!calendarState.rangeEndISO) {
+            selectedEl.textContent = `Selected start: ${calendarState.rangeStartISO}. Select an end date.`;
+        } else {
+            selectedEl.textContent = `Selected: ${calendarState.rangeStartISO} → ${calendarState.rangeEndISO}`;
+        }
+
+        const requestBtn = document.getElementById('cal-request-btn');
+        if (requestBtn) {
+            requestBtn.disabled = !calendarState.rangeStartISO;
+        }
+
+        for (const btn of grid.querySelectorAll('button.cal-day.available')) {
+            btn.addEventListener('click', () => {
+                const iso = btn.dataset.iso;
+
+                if (!calendarState.rangeStartISO || (calendarState.rangeStartISO && calendarState.rangeEndISO)) {
+                    calendarState.rangeStartISO = iso;
+                    calendarState.rangeEndISO = null;
+                } else {
+                    if (iso < calendarState.rangeStartISO) {
+                        calendarState.rangeEndISO = calendarState.rangeStartISO;
+                        calendarState.rangeStartISO = iso;
+                    } else {
+                        calendarState.rangeEndISO = iso;
+                    }
+                }
+
+                calendarState.selectedISO = iso;
+                renderCalendar();
+            });
+        }
+    }
+
+    function openCalendar(event) {
+        const calendarModal = document.getElementById('calendar-modal');
+        calendarState.model = getModelFromEvent(event);
+        calendarState.availableSet = new Set();
+        calendarState.selectedISO = null;
+        calendarState.rangeStartISO = null;
+        calendarState.rangeEndISO = null;
+        setMonthCursor(new Date());
+
+        renderWeekdays();
+        calendarModal.showModal();
+        renderCalendar();
+    }
+
+    function closeCalendar() {
+        const calendarModal = document.getElementById('calendar-modal');
+        calendarModal.close();
+    }
+
+    document.getElementById('cal-prev')?.addEventListener('click', () => {
+        const d = new Date(calendarState.monthCursor);
+        d.setMonth(d.getMonth() - 1);
+        setMonthCursor(d);
+        renderCalendar();
+    });
+
+    document.getElementById('cal-next')?.addEventListener('click', () => {
+        const d = new Date(calendarState.monthCursor);
+        d.setMonth(d.getMonth() + 1);
+        setMonthCursor(d);
+        renderCalendar();
+    });
+
+    function formatDisplayDate(iso) {
+        const [y, m, d] = iso.split('-').map(Number);
+        const date = new Date(y, m - 1, d);
+        const dd = String(d).padStart(2, '0');
+        const mm = String(m).padStart(2, '0');
+        const yy = String(y).slice(-2);
+        const dayName = date.toLocaleDateString(undefined, { weekday: 'short' });
+        return `${dd}/${mm}/${yy} (${dayName})`;
+    }
+
+    function handleBookingRequest() {
+        const start = calendarState.rangeStartISO;
+        const end = calendarState.rangeEndISO || calendarState.rangeStartISO;
+        if (!start) {
+            alert('Please select at least a start date.');
+            return;
+        }
+        const model = calendarState.model || 'Rental';
+        const displayStart = formatDisplayDate(start);
+        const displayEnd = formatDisplayDate(end);
+        const text =
+            start === end
+                ? `Booking request for ${model} on ${displayStart}`
+                : `Booking request for ${model} from ${displayStart} to ${displayEnd}`;
+        const url = `https://wa.me/918471973427?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+    }
+
+    /* Scroll Reveal (kept from original index (2).html) */
+    function revealOnScroll(){
+      var sections=document.querySelectorAll(".reveal");
+      var cards=document.querySelectorAll(".card");
+      var windowHeight=window.innerHeight;
+
+      sections.forEach(function(section){
+        if(section.getBoundingClientRect().top < windowHeight-120){
+          section.classList.add("active");
+        }
+      });
+
+      cards.forEach(function(card){
+        if(card.getBoundingClientRect().top < windowHeight-80){
+          card.classList.add("show");
+        }
+      });
+    }
+
+    window.addEventListener("scroll",revealOnScroll);
+    window.addEventListener("load",function(){
+      revealOnScroll();
+    });
+
+    // Scroll-based enhancements from main index.html
+    (function (){
+      const revealEls = document.querySelectorAll('.reveal-on-scroll');
+      const header = document.querySelector('.site-header');
+      const scrollTopBtn = document.getElementById('scroll-top-btn');
+      const navToggle = document.getElementById('nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      // IntersectionObserver for reveal animations
+      if('IntersectionObserver' in window){
+        const observer = new IntersectionObserver(
+          (entries)=>{
+            entries.forEach((entry)=>{
+              if(entry.isIntersecting){
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {threshold:0.15}
+        );
+
+        revealEls.forEach((el)=>observer.observe(el));
+      }else{
+        // Fallback: just show them
+        revealEls.forEach((el)=>el.classList.add('in-view'));
+      }
+
+      // Header style and scroll-to-top visibility on scroll
+      window.addEventListener('scroll',()=>{
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+
+        if(header){
+          if(scrollY>10){
+            header.classList.add('scrolled');
+          }else{
+            header.classList.remove('scrolled');
+          }
+        }
+
+        if(scrollTopBtn){
+          if(scrollY>250){
+            scrollTopBtn.classList.add('visible');
+          }else{
+            scrollTopBtn.classList.remove('visible');
+          }
+        }
+      });
+
+      // Scroll-to-top button click handler
+      if(scrollTopBtn){
+        scrollTopBtn.addEventListener('click',()=>{
+          window.scrollTo({top:0,behavior:'smooth'});
+        });
+      }
+
+        // Mobile nav toggle
+        if(navToggle && navLinks){
+          navToggle.addEventListener('click',()=>{
+            const isOpen = navLinks.classList.toggle('open');
+            navToggle.classList.toggle('open',isOpen);
+            navToggle.setAttribute('aria-expanded',isOpen ? 'true' : 'false');
+          });
+
+          navLinks.querySelectorAll('a').forEach((link)=>{
+            link.addEventListener('click',()=>{
+              if(navLinks.classList.contains('open')){
+                navLinks.classList.remove('open');
+                navToggle.classList.remove('open');
+                navToggle.setAttribute('aria-expanded','false');
+              }
+            });
+          });
+        }
+    })();
+    /* ===== Bike background scroll animation ===== */
+
+    let ticking = false;
+
+window.addEventListener("scroll", () => {
+
+if(!ticking){
+
+window.requestAnimationFrame(()=>{
+
+const scrollY = window.scrollY;
+
+const bike1 = document.querySelector(".bike1");
+const bike2 = document.querySelector(".bike2");
+const bike3 = document.querySelector(".bike3");
+
+if(bike1)
+bike1.style.transform = `translateX(${scrollY * 0.15}px)`;
+
+if(bike2)
+bike2.style.transform = `translateX(-${scrollY * 0.12}px)`;
+
+if(bike3)
+bike3.style.transform = `translateX(${scrollY * 0.10}px)`;
+
+ticking = false;
+
+});
+
+ticking = true;
+
+}
+
+});
+
+const sectionObserver = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+}
+});
+},{threshold:0.2});
+
+document.querySelectorAll(".section-animate").forEach(section=>{
+sectionObserver.observe(section);
+});
+
+</script>
+</body>
+</html>
