@@ -31,6 +31,9 @@ opacity:1;
 transform:translateY(0);
 }
 
+
+
+
 /* New reveal-on-scroll system from main index.html */
 .reveal-on-scroll {
     opacity: 0;
@@ -109,9 +112,16 @@ color:#ffffff;
 text-decoration:none;
 font-size:14px;
 font-weight:500;
+
+display:flex;
+align-items:center;
+
+padding:6px 10px;
+
 opacity:0.85;
 transition:opacity 0.2s ease,color 0.2s ease;
 }
+
 .nav-links a:hover{
 opacity:1;
 color:#ff6a00;
@@ -506,22 +516,43 @@ background:#e05d00;
 }
 
 @media(max-width:768px){
-  .nav-toggle{display:flex;}
-  .nav-links{
-    position:fixed;
-    inset:auto 0 0 0;
-    top:56px;
-    padding:0 5%;
-    background:rgba(5,6,8,0.98);
-    flex-direction:column;
-    align-items:flex-start;
-    gap:14px;
-    max-height:0;
-    overflow:hidden;
-    opacity:0;
-    transform:translateY(-6px);
-    transition:max-height 0.25s ease,opacity 0.25s ease,transform 0.25s ease;
-  }
+
+        .nav-toggle{display:flex;}
+        
+
+        .nav-links{
+        position:fixed;
+        top:60px;
+        left:0;
+        width:100%;
+
+        padding:0 5%;
+        background:rgba(5,6,8,0.98);
+
+        flex-direction:column;
+        align-items:flex-start;
+        gap:14px;
+
+        max-height:0;
+        overflow:hidden;
+
+        opacity:0;
+        transform:translateY(-6px);
+
+        transition:max-height 0.35s ease,opacity 0.25s ease,transform 0.25s ease;
+        }
+
+        .nav-links.open{
+        max-height:400px;
+        padding-top:12px;
+        padding-bottom:16px;
+
+        opacity:1;
+        transform:translateY(0);
+        }
+
+}
+
   .nav-links.open{
     max-height:260px;
     padding-top:12px;
@@ -546,7 +577,7 @@ background:#e05d00;
     width:220px;
   }
   section{padding:56px 6%;}
-}
+
 
 @media(max-width:480px){
   .nav-bar{
@@ -585,7 +616,7 @@ background:#e05d00;
   }
   section{
     max-width:1280px;
-    margin:0 auto;
+    margin:auto;
   }
   .hero h1{
     font-size:86px;
@@ -597,9 +628,9 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:12px;
-padding:10px;
+padding:14px;
 background:#1a1c25;
-border-radius:8px;
+border-radius:px;
 }
 
 .toggle{
@@ -1056,6 +1087,7 @@ z-index:2;
       <a href="#scooties">Scooties</a>
       <a href="#about">About</a>
       <a href="#contact">Contact Us</a>
+      <a href="https://arrentals-owner.vercel.app" class="admin-nav-btn" target="_blank">Admin</a>
     </nav>
   </div>
 </header>
