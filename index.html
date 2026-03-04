@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A.R Rentals Service | Motorcycle Rentals</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preload" as="image" href="arlogo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
@@ -16,42 +17,134 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #001f3f;
+            background: #ffffff;
+            color: #001f3f;
+            line-height: 1.6;
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(0, 31, 63, 0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #ffd700;
+        }
+
+        .site-header.scrolled {
+            background: rgba(0, 16, 40, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        }
+
+        .nav-bar {
+            width: 100%;
+            padding: 10px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: #ffffff;
+            text-decoration: none;
+        }
+
+        .nav-brand-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #ffd700;
+            background: #ffffff;
+        }
+
+        .nav-brand-text {
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.85;
+            transition: opacity 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: #ffd700;
         }
 
         .hero {
-            height: 90vh;
-            background: linear-gradient(rgba(0, 31, 63, 0.75), rgba(0, 31, 63, 0.85)), url("rental_bg.jpg") center/cover no-repeat;
+            height: 85vh;
+            background: linear-gradient(rgba(0, 31, 63, 0.85), rgba(0, 31, 63, 0.9)), url("rental_bg.jpg") center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            border-bottom: 3px solid #ffd700;
         }
 
         .logo {
-            width: 200px;
-            max-width: 45vw;
+            width: 180px;
+            max-width: 40vw;
             height: auto;
             aspect-ratio: 1/1;
             object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
             background: #ffffff;
-            padding: 8px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 223, 0, 0.5);
+            padding: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 2px solid #ffd700;
         }
 
         .hero h1 {
-            font-size: 64px;
+            font-size: 48px;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
+            color: #ffffff;
         }
 
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 20px;
+        .hero-subtitle {
+            font-size: 18px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #ffd700;
+            margin-bottom: 14px;
+        }
+
+        .hero-tagline {
+            font-size: 17px;
+            margin-bottom: 28px;
+            color: #f8f9fa;
+            max-width: 520px;
         }
 
         .hero-buttons {
@@ -63,27 +156,48 @@
             background: #ffd700;
             color: #001f3f;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 999px;
             cursor: pointer;
-            margin: 10px;
+            margin: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            min-width: 150px;
         }
 
         .hero-buttons button:hover {
-            background: #001f3f;
-            color: #ffffff;
+            background: #ffffff;
+            color: #001f3f;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
         }
 
         section {
             padding: 60px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         section h2 {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 600;
             text-align: center;
-            margin-bottom: 30px;
-            color: #ffd700;
+            margin-bottom: 40px;
+            color: #001f3f;
+            position: relative;
+        }
+        
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #ffd700;
+            border-radius: 2px;
         }
 
         .bikes {
@@ -96,11 +210,19 @@
         .card {
             background: #ffffff;
             color: #001f3f;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
-            width: 250px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 280px;
+            box-shadow: 0 2px 8px rgba(0, 31, 63, 0.1);
             text-align: center;
+            border: 1px solid #e9ecef;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 8px 22px rgba(0, 31, 63, 0.22);
+            border-color: #ffd700;
         }
 
         .card img {
@@ -122,19 +244,57 @@
             font-weight: bold;
         }
 
+        .availability-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .availability-indicator.available {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .availability-indicator.unavailable {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .availability-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .availability-indicator.available .availability-dot {
+            background: #28a745;
+        }
+
+        .availability-indicator.unavailable .availability-dot {
+            background: #dc3545;
+        }
+
         .check-availability {
-            background: #ffd700;
-            color: #001f3f;
+            background: #001f3f;
+            color: #ffffff;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 10px 16px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
 
         .check-availability:hover {
-            background: #001f3f;
-            color: #ffffff;
+            background: #ffd700;
+            color: #001f3f;
+            transform: translateY(-1px);
         }
 
         .about,
@@ -150,62 +310,373 @@
         }
 
         .contact-link {
-            color: #ffd700;
+            color: #001f3f;
             text-decoration: none;
+            font-weight: 600;
         }
 
         .contact-link:hover {
+            color: #ffd700;
             text-decoration: underline;
         }
 
         .map-container {
-            margin-top: 20px;
+            margin-top: 24px;
             border: 2px solid #ffd700;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 31, 63, 0.1);
+        }
+
+        .scroll-top-btn {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: #ffd700;
+            color: #001f3f;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 25;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease, background 0.2s ease;
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top-btn:hover {
+            background: #ffffff;
         }
 
         footer {
-            background: #001f3f;
+            background: #001021;
             color: #ffffff;
             text-align: center;
-            padding: 20px 0;
+            padding: 24px 0;
             border-top: 2px solid #ffd700;
-            font-size: 16px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1200px) {
+            section {
+                padding: 50px 8%;
+            }
+            
+            .card {
+                width: 260px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            section {
+                padding: 45px 6%;
+            }
+            
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            .card {
+                width: 240px;
+            }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 48px;
+            .nav-bar {
+                padding: 10px 6%;
             }
 
-            .hero p {
-                font-size: 18px;
+            .nav-links {
+                gap: 14px;
+            }
+
+            .hero {
+                height: 80vh;
+                padding: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+                margin-bottom: 8px;
+            }
+        
+            .hero-subtitle {
+                font-size: 15px;
+            }
+
+            .hero-tagline {
+                font-size: 15px;
             }
 
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 10px;
+            }
+            
+            .hero-buttons button {
+                width: 200px;
+                margin: 5px;
             }
 
             .card {
                 width: 100%;
-                max-width: 300px;
+                max-width: 320px;
+            }
+            
+            .bikes {
+                gap: 16px;
             }
 
             section {
                 padding: 40px 5%;
+            }
+            
+            section h2 {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 75vh;
+                padding: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 14px;
+                letter-spacing: 0.14em;
+            }
+            
+            .logo {
+                width: 150px;
+            }
+            
+            .hero-buttons button {
+                width: 180px;
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .card {
+                max-width: 280px;
+            }
+            
+            .card img {
+                height: 130px;
+            }
+            
+            .card-content {
+                padding: 12px;
+            }
+            
+            section h2 {
+                font-size: 24px;
+            }
+            
+            .about p, .contact p {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 130px;
+            }
+            
+            .hero-buttons button {
+                width: 160px;
+                font-size: 13px;
+            }
+            
+            .card {
+                max-width: 260px;
+            }
+            
+            .card img {
+                height: 120px;
+            }
+            
+            .availability-indicator {
+                font-size: 11px;
+                padding: 3px 6px;
+            }
+            
+            .check-availability {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+            
+            section h2 {
+                font-size: 22px;
             }
         }
 
         /* Calendar modal */
         #calendar-modal {
             border: 2px solid #ffd700;
-            border-radius: 12px;
-            padding: 18px 18px 14px;
-            background: #001f3f;
-            color: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+            background: #ffffff;
+            color: #001f3f;
             width: min(520px, calc(100vw - 32px));
+            box-shadow: 0 8px 32px rgba(0, 31, 63, 0.15);
+        }
+        
+        @media (max-width: 576px) {
+            #calendar-modal {
+                padding: 16px;
+                width: calc(100vw - 24px);
+                margin: 12px;
+            }
+            
+            .cal-title h3 {
+                font-size: 18px;
+            }
+            
+            .cal-title .cal-model {
+                font-size: 12px;
+            }
+            
+            .cal-nav {
+                margin: 8px 0 10px;
+            }
+            
+            .cal-nav button {
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+            
+            .cal-month-label {
+                font-size: 14px;
+            }
+            
+            .cal-weekdays div {
+                font-size: 11px;
+                padding: 2px 0;
+            }
+            
+            .cal-day {
+                height: 36px;
+                font-size: 12px;
+            }
+            
+            .cal-spacer {
+                height: 36px;
+            }
+            
+            .cal-legend {
+                font-size: 11px;
+                gap: 8px;
+            }
+            
+            .cal-dot {
+                width: 8px;
+                height: 8px;
+            }
+            
+            .cal-actions button {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .cal-selected {
+                font-size: 12px;
+                margin-top: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #calendar-modal {
+                padding: 12px;
+                width: calc(100vw - 20px);
+                margin: 10px;
+            }
+            
+            .cal-title {
+                margin-bottom: 8px;
+            }
+            
+            .cal-title h3 {
+                font-size: 16px;
+            }
+            
+            .cal-nav {
+                gap: 6px;
+            }
+            
+            .cal-nav button {
+                padding: 4px 6px;
+                font-size: 11px;
+            }
+            
+            .cal-month-label {
+                font-size: 13px;
+            }
+            
+            .cal-weekdays, .cal-grid {
+                gap: 4px;
+            }
+            
+            .cal-weekdays div {
+                font-size: 10px;
+            }
+            
+            .cal-day {
+                height: 32px;
+                font-size: 11px;
+            }
+            
+            .cal-spacer {
+                height: 32px;
+            }
+            
+            .cal-footer {
+                margin-top: 10px;
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+            
+            .cal-legend {
+                justify-content: center;
+            }
+            
+            .cal-actions {
+                justify-content: center;
+                gap: 8px;
+            }
+            
+            .cal-actions button {
+                flex: 1;
+                padding: 6px 10px;
+                font-size: 11px;
+            }
         }
 
         #calendar-modal::backdrop {
@@ -221,14 +692,16 @@
         }
 
         .cal-title h3 {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             margin: 0;
+            color: #001f3f;
         }
 
         .cal-title .cal-model {
-            font-size: 13px;
-            opacity: 0.9;
+            font-size: 14px;
+            opacity: 0.8;
+            color: #6c757d;
         }
 
         .cal-nav {
@@ -241,21 +714,25 @@
 
         .cal-nav button {
             background: transparent;
-            color: #ffd700;
-            border: 1px solid rgba(255, 215, 0, 0.7);
-            padding: 8px 10px;
-            border-radius: 8px;
+            color: #001f3f;
+            border: 1px solid #dee2e6;
+            padding: 8px 12px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
+            transition: all 0.2s ease;
         }
 
         .cal-nav button:hover {
-            background: rgba(255, 215, 0, 0.08);
+            background: #ffd700;
+            border-color: #ffd700;
+            color: #001f3f;
         }
 
         .cal-month-label {
             font-weight: 600;
-            color: #ffffff;
+            color: #001f3f;
+            font-size: 16px;
         }
 
         .cal-weekdays,
@@ -269,44 +746,49 @@
             text-align: center;
             font-size: 12px;
             letter-spacing: 0.02em;
-            opacity: 0.85;
+            opacity: 0.7;
             padding: 4px 0;
+            color: #6c757d;
+            font-weight: 500;
         }
 
         .cal-day {
             height: 42px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.06);
-            color: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+            background: #ffffff;
+            color: #001f3f;
             cursor: pointer;
             font-size: 14px;
+            transition: all 0.2s ease;
         }
 
         .cal-day:hover:not(:disabled) {
-            border-color: rgba(255, 215, 0, 0.75);
-            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.18) inset;
+            border-color: #ffd700;
+            background: #fff9e6;
         }
 
         .cal-day.available {
-            background: #ffd700;
+            background: #fff9e6;
             color: #001f3f;
-            border-color: rgba(0, 0, 0, 0.15);
-            font-weight: 600;
+            border-color: #ffd700;
+            font-weight: 500;
         }
 
         .cal-day.unavailable,
         .cal-day:disabled {
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.45);
-            border-color: rgba(255, 255, 255, 0.08);
+            background: #f8f9fa;
+            color: #adb5bd;
+            border-color: #e9ecef;
             cursor: not-allowed;
-            filter: grayscale(0.7);
         }
 
         .cal-day.selected {
-            outline: 2px solid rgba(255, 215, 0, 0.9);
+            outline: 2px solid #ffd700;
             outline-offset: 2px;
+            background: #ffd700;
+            color: #001f3f;
+            font-weight: 600;
         }
 
         .cal-spacer {
@@ -324,9 +806,9 @@
         .cal-legend {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 12px;
-            opacity: 0.92;
+            gap: 12px;
+            font-size: 13px;
+            color: #6c757d;
             flex-wrap: wrap;
         }
 
@@ -343,8 +825,8 @@
         }
 
         .cal-dot.unavailable {
-            background: rgba(255, 255, 255, 0.18);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: #adb5bd;
+            border: 1px solid #dee2e6;
         }
 
         .cal-actions {
@@ -354,33 +836,61 @@
         }
 
         .cal-actions button {
-            background: #ffd700;
-            color: #001f3f;
+            background: #001f3f;
+            color: #ffffff;
             border: none;
-            padding: 9px 12px;
-            border-radius: 8px;
+            padding: 10px 16px;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
 
-        .cal-actions button:hover {
-            background: #ffffff;
+        .cal-actions button:hover:not(:disabled) {
+            background: #ffd700;
+            color: #001f3f;
+        }
+
+        .cal-actions button:disabled {
+            background: #e9ecef;
+            color: #6c757d;
+            cursor: not-allowed;
         }
 
         .cal-selected {
-            margin-top: 10px;
-            font-size: 13px;
-            opacity: 0.95;
+            margin-top: 12px;
+            font-size: 14px;
+            color: #495057;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
 
+<header class="site-header">
+    <div class="nav-bar">
+        <a href="#top" class="nav-brand">
+            <img src="arlogo.png" alt="A.R Rentals logo" class="nav-brand-logo" width="40" height="40" decoding="async" loading="lazy">
+            <span class="nav-brand-text">A.R Rentals</span>
+        </a>
+        <nav class="nav-links">
+            <a href="#bikes">Bikes</a>
+            <a href="#scooties">Scooties</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact Us</a>
+        </nav>
+    </div>
+</header>
+
 <!-- HERO -->
-<div class="hero">
-    <img src="logo-ar.png" class="logo" alt="A.R Rentals logo">
+<div class="hero reveal-on-scroll" id="top">
+    <img src="arlogo.png" class="logo" alt="A.R Rentals logo" width="180" height="180" decoding="async" fetchpriority="high">
     <h1>A.R Rentals Service</h1>
-    <p>Affordable Bike & Scooty Rental</p>
+    <p class="hero-subtitle">Rent • Ride • Repeat</p>
+    <p class="hero-tagline">
+        Premium motorcycle and scooter rentals in Guwahati. Experience the freedom of the open road
+        with well-maintained bikes and reliable service.
+    </p>
     <div class="hero-buttons">
         <button onclick="document.getElementById('bikes').scrollIntoView({behavior:'smooth'})">View Bikes</button>
         <button class="secondary-btn" onclick="document.getElementById('scooties').scrollIntoView({behavior:'smooth'})">View Scooties</button>
@@ -388,8 +898,12 @@
 </div>
 
 <!-- BIKES -->
-<section id="bikes">
-    <h2>Bikes</h2>
+<section id="bikes" class="reveal-on-scroll">
+    <h2>Our Bikes</h2>
+    <p style="text-align:center; max-width:700px; margin:0 auto 26px; color:#495057;">
+        Choose from our premium collection of well-maintained motorcycles, perfect for city rides,
+        touring, and adventure travel.
+    </p>
     <div class="bikes">
         <div class="card">
             <img src="xpulse200.jpg" alt="XPulse 200">
@@ -459,8 +973,11 @@
 </section>
 
 <!-- SCOOTIES -->
-<section id="scooties">
-    <h2>Scooties</h2>
+<section id="scooties" class="reveal-on-scroll">
+    <h2>Our Scooties</h2>
+    <p style="text-align:center; max-width:700px; margin:0 auto 26px; color:#495057;">
+        Perfect for city commutes and short trips. Affordable, efficient, and easy to ride.
+    </p>
     <div class="bikes">
         <div class="card">
             <img src="ntorq125xt.jpg" alt="NTORQ 125 XT">
@@ -498,30 +1015,52 @@
 </section>
 
 <!-- ABOUT -->
-<section class="about">
+<section class="about reveal-on-scroll" id="about">
     <h2>About Us</h2>
-    <p>
-        A.R Rentals Service provides well-maintained motorcycles and scooties suitable for city rides,
-        touring, and adventure travel with reliable service and affordable pricing.
+    <p style="max-width:800px; margin:0 auto; color:#495057;">
+        A.R Rentals Service is your trusted partner for motorcycle and scooter rentals in Guwahati.
+        We provide well-maintained, reliable vehicles suitable for city rides, touring, and adventure travel.
+        With affordable pricing and exceptional service, we ensure your journey is memorable and hassle-free.
     </p>
 </section>
 
 <!-- CONTACT -->
-<section class="contact">
-    <h2>Contact Information</h2>
-    <p><strong>Phone:</strong> <a href="tel:+918471973427" class="contact-link">+91 8471973427</a></p>
-    <p><strong>Email:</strong> <a href="mailto:mohanraju491@gmail.com" class="contact-link">mohanraju491@gmail.com</a></p>
-    <p><strong>Address:</strong> Ghoramara, Bhetapara, Guwahati, Assam</p>
-    <p>Open Daily: 8:00 AM – 8:00 PM</p>
+<section class="contact reveal-on-scroll" id="contact">
+    <h2>Get In Touch</h2>
+    <p style="max-width:700px; margin:0 auto 26px; color:#495057;">
+        Have questions? We're here to help. Reach out to us through any of the channels below.
+    </p>
+    <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:24px;">
+        <div style="min-width:220px; padding:16px 18px; border-radius:8px; border:1px solid #e9ecef; box-shadow:0 2px 6px rgba(0,0,0,0.04); text-align:left;">
+            <h3 style="font-size:18px; margin-bottom:8px; color:#001f3f;">Phone</h3>
+            <p><a href="tel:+918471973427" class="contact-link">+91 8471973427</a></p>
+        </div>
+        <div style="min-width:220px; padding:16px 18px; border-radius:8px; border:1px solid #e9ecef; box-shadow:0 2px 6px rgba(0,0,0,0.04); text-align:left;">
+            <h3 style="font-size:18px; margin-bottom:8px; color:#001f3f;">Email</h3>
+            <p><a href="mailto:mohanraju491@gmail.com" class="contact-link">mohanraju491@gmail.com</a></p>
+        </div>
+        <div style="min-width:220px; padding:16px 18px; border-radius:8px; border:1px solid #e9ecef; box-shadow:0 2px 6px rgba(0,0,0,0.04); text-align:left;">
+            <h3 style="font-size:18px; margin-bottom:8px; color:#001f3f;">Address</h3>
+            <p>Ghoramara, Bhetapara<br>Guwahati, Assam</p>
+        </div>
+        <div style="min-width:220px; padding:16px 18px; border-radius:8px; border:1px solid #e9ecef; box-shadow:0 2px 6px rgba(0,0,0,0.04); text-align:left;">
+            <h3 style="font-size:18px; margin-bottom:8px; color:#001f3f;">Hours</h3>
+            <p>Open Daily<br>8:00 AM – 8:00 PM</p>
+        </div>
+    </div>
     <div class="map-container">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.3445954243!2d91.78082107545514!3d26.120305077128364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375a5f1495d3c577%3A0x173fea707f17bc16!2sAR%20BIKE%20RENTAL%20%7C%20scooter%20rental%20Guwahati!5e0!3m2!1sen!2sin!4v1771603455580!5m2!1sen!2sin"
                 width="100%" height="450" style="border:0;" allowfullscreen loading="lazy"></iframe>
     </div>
 </section>
 
-<footer>
-    ©️ 2026 A.R Rentals Service
+<footer class="reveal-on-scroll">
+    © 2026 A.R Rentals Service. All rights reserved.
 </footer>
+
+<button type="button" class="scroll-top-btn" aria-label="Scroll to top" id="scroll-top-btn">
+    <i class="fa-solid fa-chevron-up"></i>
+</button>
 
 <!-- Calendar Modal -->
 <dialog id="calendar-modal">
@@ -593,35 +1132,87 @@ async function preloadUnavailableDates() {
   });
 }
 
-function buildAvailableSet(model) {
+// Helper to decide if a specific date is available for a model
+function isDateAvailableForModel(model, date) {
   const blockedSet = window.unavailableByModel[model] || new Set();
+
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const daysAhead = 60;
-  const closedWeekdays = new Set([0]); // Sunday closed
-  const result = new Set();
+  // Do not allow past dates
+  if (d.getTime() < today.getTime()) return false;
 
-  for (let i = 0; i <= daysAhead; i++) {
-    const d = new Date(today);
-    d.setDate(d.getDate() + i);
+  const iso = d.toISOString().split("T")[0];
 
-    if (closedWeekdays.has(d.getDay())) continue;
+  // If the date is explicitly blocked in Firestore, mark it unavailable
+  if (blockedSet.has(iso)) return false;
 
-    const iso = d.toISOString().split("T")[0];
-    if (!blockedSet.has(iso)) {
-      result.add(iso);
-    }
-  }
-
-  return result;
+  // Otherwise it's available
+  return true;
 }
 
-// Make calendar helper available globally
-window.buildAvailableSet = buildAvailableSet;
+// Function to check today's availability for a vehicle model
+function isAvailableToday(model) {
+  const today = new Date();
+  return isDateAvailableForModel(model, today);
+}
+
+// Function to update availability indicators on all cards
+function updateAvailabilityIndicators() {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const model = card.querySelector('h3')?.textContent?.trim();
+    if (!model) return;
+    
+    // Remove existing indicator if any
+    const existingIndicator = card.querySelector('.availability-indicator');
+    if (existingIndicator) {
+      existingIndicator.remove();
+    }
+    
+    // Create new indicator
+    const indicator = document.createElement('div');
+    indicator.className = 'availability-indicator';
+    
+    const dot = document.createElement('span');
+    dot.className = 'availability-dot';
+    
+    const text = document.createElement('span');
+    
+    if (isAvailableToday(model)) {
+      indicator.classList.add('available');
+      text.textContent = 'Available Today';
+    } else {
+      indicator.classList.add('unavailable');
+      text.textContent = 'Unavailable Today';
+    }
+    
+    indicator.appendChild(dot);
+    indicator.appendChild(text);
+    
+    // Insert indicator after price element
+    const priceElement = card.querySelector('.price');
+    if (priceElement) {
+      priceElement.parentNode.insertBefore(indicator, priceElement.nextSibling);
+    }
+  });
+}
+
+// Make functions globally available
+window.isDateAvailableForModel = isDateAvailableForModel;
+window.isAvailableToday = isAvailableToday;
+window.updateAvailabilityIndicators = updateAvailabilityIndicators;
 
 // Preload Firestore data once on load
-preloadUnavailableDates().catch(console.error);
+preloadUnavailableDates()
+  .then(() => {
+    // Update availability indicators after data is loaded
+    updateAvailabilityIndicators();
+  })
+  .catch(console.error);
 </script>
 
 <script>
@@ -697,7 +1288,11 @@ preloadUnavailableDates().catch(console.error);
             const d = new Date(year, month, day);
             const iso = toISODate(d);
             const isPast = startOfDay(d).getTime() < today.getTime();
-            const isAvailable = !isPast && calendarState.availableSet.has(iso);
+            const isAvailable = !isPast && (
+                typeof window.isDateAvailableForModel === 'function'
+                    ? window.isDateAvailableForModel(calendarState.model, d)
+                    : true
+            );
 
             let inRange = false;
             let isStart = false;
@@ -770,7 +1365,7 @@ preloadUnavailableDates().catch(console.error);
     function openCalendar(event) {
         const calendarModal = document.getElementById('calendar-modal');
         calendarState.model = getModelFromEvent(event);
-        calendarState.availableSet = buildAvailableSet(calendarState.model);
+        calendarState.availableSet = new Set();
         calendarState.selectedISO = null;
         calendarState.rangeStartISO = null;
         calendarState.rangeEndISO = null;
@@ -827,6 +1422,61 @@ preloadUnavailableDates().catch(console.error);
         const url = `https://wa.me/918471973427?text=${encodeURIComponent(text)}`;
         window.open(url, '_blank');
     }
+
+    // Scroll-based enhancements
+    (function () {
+        const revealEls = document.querySelectorAll('.reveal-on-scroll');
+        const header = document.querySelector('.site-header');
+        const scrollTopBtn = document.getElementById('scroll-top-btn');
+
+        // IntersectionObserver for reveal animations
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.15 }
+            );
+
+            revealEls.forEach((el) => observer.observe(el));
+        } else {
+            // Fallback: just show them
+            revealEls.forEach((el) => el.classList.add('in-view'));
+        }
+
+        // Header style and scroll-to-top visibility on scroll
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY || window.pageYOffset || 0;
+
+            if (header) {
+                if (scrollY > 10) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+
+            if (scrollTopBtn) {
+                if (scrollY > 250) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            }
+        });
+
+        // Scroll-to-top button click handler
+        if (scrollTopBtn) {
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    })();
 </script>
 </body>
 </html>
