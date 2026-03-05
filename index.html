@@ -1471,7 +1471,12 @@ preloadUnavailableDates()
         for (let day = 1; day <= daysInMonth; day++) {
             const d = new Date(year, month, day);
             const iso = toISODate(d);
-            const isAvailable = (
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            const isPast = d < today;
+
+            const isAvailable = !isPast && (
                 typeof window.isDateAvailableForModel === 'function'
                     ? window.isDateAvailableForModel(calendarState.model, iso)
                     : true
